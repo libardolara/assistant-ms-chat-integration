@@ -1,5 +1,5 @@
 {
-    "name": "message-reaction-bot",
+    "name": "watson-assistant-ms-bot",
     "version": "1.0.0",
     "description": "Bot Builder v4 Bot sample",
     "author": "Libardo Lara",
@@ -13,7 +13,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/Microsoft/BotBuilder-Samples.git"
+        "url": "https://github.com/libardolara/assistant-ms-chat-integration.git"
     },
     "dependencies": {
         "botbuilder": "~4.17.0",

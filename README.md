@@ -1,36 +1,72 @@
-## Message Reactions Bot
+## Watson Assistant - MS Integration
 
-Bot Framework [message reactions](https://docs.microsoft.com/en-us/microsoftteams/platform/bots/how-to/conversations/subscribe-to-conversation-events?tabs=dotnet#message-reaction-events) bot sample.
+> Based on Bot Framework [message reactions](https://docs.microsoft.com/en-us/microsoftteams/platform/bots/how-to/conversations/subscribe-to-conversation-events?tabs=dotnet#message-reaction-events) bot sample.
 
-This bot has been created using [Bot Framework](https://dev.botframework.com), it shows how to create a simple bot that responds to Message Reactions.
+This bot has been created using [Bot Framework](https://dev.botframework.com), it shows how to create a simple assistant that responds to messages using [Watson Assistant's](https://cloud.ibm.com/catalog/services/watson-assistant) conversational AI.
 
 ## Prerequisites
 
-- Microsoft Teams is installed and you have an account
+- [IBM Cloud](https://cloud.ibm.com) account
+- [Watson Assistant](https://cloud.ibm.com/catalog/services/watson-assistant) service
+- Azure account with CosmoDB database named _botdocs_ and a container id _bot-storage_
+- Microsoft Teams is installed and you have an account (Only for live deployment)
 - [NodeJS](https://nodejs.org/en/)
-- [ngrok](https://ngrok.com/) or equivalent tunnelling solution
 
-## To try this sample
-
-> Note these instructions are for running the sample on your local machine, the tunnelling solution is required because
-the Teams service needs to call into the bot.
-
+## Instructions
 
 1) Clone the repository
 
     ```bash
-    git clone https://github.com/Microsoft/botbuilder-samples.git
+    git clone https://github.com/libardolara/assistant-ms-chat-integration.git
     ```
-
-1) In a terminal, navigate to `samples/javascript_nodejs/25.message-reaction`
 
 1) Install modules
 
     ```bash
     npm install
     ```
+1) Copy or rename the .env_example file to .env (nothing before the dot) and add your Watson Assistant details, CosmosDb variables and Microsoft Bot app keys.
 
-1) Run ngrok - point to port 3978
+```
+# Environment variables
+MicrosoftAppType=
+MicrosoftAppId=
+MicrosoftAppPassword=
+MicrosoftAppTenantId=
+CosmosDbEndpoint=
+CosmosDbAuthKey=
+CosmosDbDatabaseId="botdocs"
+CosmosDbContainerId="bot-storage"
+
+# Watson Assistant Variables
+ASSISTANT_APIKEY=
+ASSISTANT_ID=
+ASSISTANT_URL=
+```
+
+### To try this sample locally using Bot Framework Emmulator
+
+1) Install and run [Bot Framework Emulator](https://docs.microsoft.com/en-us/azure/bot-service/bot-service-debug-emulator?view=azure-bot-service-4.0&tabs=csharp)
+
+1) Run your bot at the command line:
+
+    ```bash
+    npm start
+    ```
+
+1) Open a new bot on [Bot Framework Emulator](https://docs.microsoft.com/en-us/azure/bot-service/bot-service-debug-emulator?view=azure-bot-service-4.0&tabs=csharp), point it to endpoint `http://localhost:3978/api/messages` 
+
+
+![botframework](img/bot-emulator.png)
+
+
+### To try this sample locally using MS Teams
+
+> Note these instructions are for running the sample on your local machine, the tunnelling solution is required because the Teams service needs to call into the bot.
+
+
+
+1) Install [ngrok](https://ngrok.com/) and run - point to port 3978
 
     ```bash
     ngrok http -host-header=rewrite 3978
@@ -56,12 +92,16 @@ the Teams service needs to call into the bot.
 
 ## Interacting with the bot in Teams
 
-Message the bot and it will respond with an 'Echo: [your message]'.  Add a message reaction to the bot's response, and the bot will reply accordingly.
+Message the bot and Watson Assistant will respond.
 
-## Deploy the bot to Azure
+## Deploy the bot to IBM Cloud
 
-To learn more about deploying a bot to Azure, see [Deploy your bot to Azure](https://aka.ms/azuredeployment) for a complete list of deployment instructions.
+> TODO
 
 ## Further reading
 
-- [Teams Message Reaction Events](https://docs.microsoft.com/en-us/microsoftteams/platform/bots/how-to/conversations/subscribe-to-conversation-events?tabs=dotnet#message-reaction-events)
+- [How Microsoft Teams bots work](https://docs.microsoft.com/en-us/azure/bot-service/bot-builder-basics-teams?view=azure-bot-service-4.0&tabs=javascript)
+- [Test and debug your bot locally](https://docs.microsoft.com/en-us/microsoftteams/platform/bots/how-to/debug/locally-with-an-ide)
+- [Test and debug with the Emulator](https://docs.microsoft.com/en-us/azure/bot-service/bot-service-debug-emulator?view=azure-bot-service-4.0&preserve-view=true&tabs=javascript)
+
+

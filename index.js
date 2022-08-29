@@ -1,6 +1,3 @@
-// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License.
-
 // index.js is used to setup and configure your bot
 
 // Import required pckages
@@ -90,54 +87,6 @@ server.use(restify.plugins.bodyParser({
 
 server.listen(process.env.port || process.env.PORT || 3978, function () {
   console.log(`\n${server.name} listening to ${server.url}`);
-});
-
-// Listen for incoming notifications and send Notification messages to users.
-server.get('/api/notify', async (req, res) => {
-  try {
-    console.log("req", req.params);
-    const userID = req.params.userID;
-    const conversationReferences = await bot.getConversationReferences();
-    if (userID !== undefined) {
-      const cr_user = conversationReferences["ConversationReferences"].CRList[userID];
-      await adapter.continueConversationAsync(process.env.MicrosoftAppId, cr_user, async context => {
-        await context.sendActivity('Notification hello');
-      });
-    } else {
-      throw new Error("No user defined");
-    }
-    res.setHeader('Content-Type', 'text/html');
-    res.writeHead(200);
-    res.write('<html><body><h1>Notification messages have been sent.</h1></body></html>');
-    res.end();
-  } catch (error) {
-    res.setHeader('Content-Type', 'text/html');
-    res.writeHead(400);
-    res.write(`<html><body><h1>${error}</h1></body></html>`);
-    res.end();
-  }
-});
-
-server.get('/api/notifyAll', async (req, res) => {
-  try {
-    const conversationReferences = await bot.getConversationReferences();
-    for (const conversationReference of Object.values(conversationReferences["ConversationReferences"].CRList)) {
-      adapter.continueConversationAsync(process.env.MicrosoftAppId, conversationReference, async context => {
-        await context.sendActivity('Notification hello');
-      });
-    }
-    res.setHeader('Content-Type', 'text/html');
-    res.writeHead(200);
-    res.write('<html><body><h1>Notification messages have been sent.</h1></body></html>');
-    res.end();
-  } catch (error) {
-    res.setHeader('Content-Type', 'text/html');
-    res.writeHead(400);
-    res.write(`<html><body><h1>${error}</h1></body></html>`);
-    res.end();
-  }
-
-
 });
 
 // Listen for incoming requests.

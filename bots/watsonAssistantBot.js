@@ -4,7 +4,6 @@
 const {
     ActivityHandler,
     CardFactory,
-    TurnContext,
     MessageFactory
 } = require('botbuilder');
 const { ActionTypes } = require('botframework-schema');
@@ -22,26 +21,6 @@ class WatsonAssistantBot extends ActivityHandler {
 
         this._assistant = assistantBot;
         this._ASSISTANT_ID = ASSISTANT_ID;
-
-        this.onConversationUpdate(async (context, next) => {
-            await this.addConversationReference(context.activity);
-
-            await next();
-        });
-
-        this.onMembersAdded(async (context, next) => {
-            const membersAdded = context.activity.membersAdded;
-            for (let cnt = 0; cnt < membersAdded.length; cnt++) {
-                if (membersAdded[cnt].id !== context.activity.recipient.id) {
-                    await this.addConversationReference(context.activity);
-                    //const welcomeMessage = 'Welcome to the Proactive Bot sample';
-                    //await context.sendActivity(welcomeMessage);
-                }
-            }
-
-            // By calling next() you ensure that the next BotHandler is run.
-            await next();
-        });
 
         this.onMessage(async (context, next) => {
             // Get the state properties from the context.
@@ -108,35 +87,6 @@ class WatsonAssistantBot extends ActivityHandler {
     }
 
     /**
-     * Adds a member conversation reference.
-     * @param {activity} activity TODO.
-     */
-    async addConversationReference(activity) {
-        const conversationReference = TurnContext.getConversationReference(activity);
-        await this.getConversationReferences();
-        this.conversationReferences["ConversationReferences"].CRList[conversationReference.user.id] = conversationReference;
-        await this.storage.write(this.conversationReferences);
-    }
-
-    /**
-     * Return the Conversation References
-     */
-    async getConversationReferences() {
-        // Dependency injected dictionary for storing ConversationReference objects used in NotifyController to proactively message users
-        if (this.conversationReferences === undefined) {
-            let conversationReferences = await this.storage.read(["ConversationReferences"]);
-
-            if (typeof (conversationReferences["ConversationReferences"]) === 'undefined') {
-                conversationReferences["ConversationReferences"] = { CRList: {}, "eTag": "*" };
-            }
-            this.conversationReferences = conversationReferences;
-        }
-
-        return this.conversationReferences;
-    }
-
-
-    /**
      * Sends a HeroCard.
      * @param {text} text TODO.
      * @param {context} context TODO.
@@ -179,9 +129,7 @@ class WatsonAssistantBot extends ActivityHandler {
         await super.run(context);
 
         // Save any state changes. The load happened during the execution of the Dialog.
-        //await this.conversationState.saveChanges(context, false);
         await this.userState.saveChanges(context, false);
-        //await this.storage.write(this.conversationReferences);
     }
 }
 
