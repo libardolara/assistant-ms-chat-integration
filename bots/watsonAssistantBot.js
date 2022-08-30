@@ -69,9 +69,9 @@ class WatsonAssistantBot extends ActivityHandler {
 
     /**
      * Send users message to Watson Assistant.
-     * @param {text} text TODO.
-     * @param {sessionId} sessionId TODO.
-     * @param {userId} userId TODO.
+     * @param {string} text String to be sent as a message to Watson Assistant.
+     * @param {string} sessionId Watson Assistant Session ID.
+     * @param {string} userId ID from MS Teams or Bot Framework.
      */
     async invokeWatsonAssistant(text, sessionId, userId) {
         var res = await this._assistant.message({
@@ -87,11 +87,11 @@ class WatsonAssistantBot extends ActivityHandler {
     }
 
     /**
-     * Sends a HeroCard.
-     * @param {text} text TODO.
-     * @param {context} context TODO.
-     * @param {title} userId TODO.
-     * * @param {src} src TODO.
+     * Sends a HeroCard with an Image
+     * @param {context} context A TurnContext instance containing all the data needed for processing this conversation turn.
+     * @param {string} title Card Title.
+     * @param {string} text Text to the card.
+     * * @param {string} src URL to the image to display.
      */
     async sendHeroCard(context, title, text, src) {
         const buttons = [
@@ -105,7 +105,8 @@ class WatsonAssistantBot extends ActivityHandler {
 
     /**
      * Send suggested actions to the user.
-     * @param {context} context A context instance containing all the data needed for processing this conversation turn.
+     * @param {context} context A TurnContext instance containing all the data needed for processing this conversation turn.
+     * @param {array} options The array object with the options from Watson Assistant.
      */
     async sendSuggestedActions(context, options) {
         var cardActions = []
