@@ -1,8 +1,8 @@
-## Watson Assistant - MS Integration
+## Watson Assistant - Microsoft Chat Integration
 
 > Based on Bot Framework [message reactions](https://docs.microsoft.com/en-us/microsoftteams/platform/bots/how-to/conversations/subscribe-to-conversation-events?tabs=dotnet#message-reaction-events) bot sample.
 
-This bot has been created using [Bot Framework](https://dev.botframework.com), it shows how to create a simple assistant that responds to messages using [Watson Assistant's](https://cloud.ibm.com/catalog/services/watson-assistant) conversational AI.
+This bot has been created using [Bot Framework](https://dev.botframework.com) v4, it shows how to create a simple assistant that responds to messages using [Watson Assistant's](https://cloud.ibm.com/catalog/services/watson-assistant) conversational AI. The chat can be integrated into Microsoft Teams, Skype, Cortana and other services managed by Bot Framework.
 
 ## Prerequisites
 
@@ -25,7 +25,7 @@ This bot has been created using [Bot Framework](https://dev.botframework.com), i
     ```bash
     npm install
     ```
-1) Copy or rename the .env_example file to .env (nothing before the dot) and add your Watson Assistant details, CosmosDb variables and Microsoft Bot app keys.
+1) Copy or rename the `.env_example` file to `.env` (nothing before the dot) and add your Watson Assistant details, CosmosDb variables and Microsoft Bot app keys.
 
 ```
 # Environment variables
@@ -67,9 +67,10 @@ ASSISTANT_URL=
 
 
 1) Install [ngrok](https://ngrok.com/) and run - point to port 3978
-
+    - You will need to sign in to [setup](https://dashboard.ngrok.com/get-started/setup).
+    
     ```bash
-    ngrok http -host-header=rewrite 3978
+    ngrok http --host-header=rewrite 3978
     ```
 
 1) Create [Bot Framework registration resource](https://docs.microsoft.com/en-us/azure/bot-service/bot-service-quickstart-registration) in Azure
