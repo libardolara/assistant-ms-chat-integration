@@ -1,4 +1,4 @@
-## Watson Assistant - Microsoft Chat Integration
+# Watson Assistant - Microsoft Chat Integration
 
 > Based on Bot Framework [message reactions](https://docs.microsoft.com/en-us/microsoftteams/platform/bots/how-to/conversations/subscribe-to-conversation-events?tabs=dotnet#message-reaction-events) bot sample.
 
@@ -97,7 +97,7 @@ Message the bot and Watson Assistant will respond.
 
 ## Deploy the bot to IBM Cloud
 
-> TODO
+Learn how to deploy this application on [IBM Cloud Code Engine](CODE.md)
 
 ## Further reading
 
