@@ -39,6 +39,8 @@
 
     ![botframework](img/build-complete.png)
 
+1) Select Listening port as `3978`.
+
 1) Open the **Environment Variables** section. You will need to add several of these (click Add for each):
     - Name: ASSISTANT_APIKEY   Value: <your_watson_assistant_apikey> (From the Watson Assistant service)
     - Name: ASSISTANT_ID   Value: <your_watson_assistant_ID> (From the Watson Assistant service)
